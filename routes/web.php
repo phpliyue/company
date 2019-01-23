@@ -14,3 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+ * 雪球社区管理
+ */
+Route::any('/login','Admin\LoginController@login');//登录
+Route::any('/register','Admin\LoginController@register');//注册
+Route::any('/logout','Admin\LoginController@logout');//退出
+Route::group(['middleware'=>'adminAuth'],function() {
+    Route::get('/admin_index', 'Admin\IndexController@index');//后台首页
+    Route::get('/shop_goods', 'Shop\GoodsController@goods');//商品列表
+    Route::any('/shop_upgoods/{id?}', 'Shop\GoodsController@upgoods');//上架商品
+    Route::post('/shop_upload', 'Shop\GoodsController@upload');//上传图片
+    Route::get('/shop_cate', 'Shop\CateController@index');//类目
+    Route::any('/shop_addcate/{id?}', 'Shop\CateController@addcate');//新增类目
+});
