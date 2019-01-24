@@ -12,7 +12,7 @@ class NewsController extends Controller
     public function news()
     {
         $data = DB::table('snow_news')->where('status',0)->get();
-        return view('shop.news',['data'=>$data]);
+        return view('snow.news',['data'=>$data]);
     }
 
     //上传新闻
@@ -37,7 +37,7 @@ class NewsController extends Controller
         }else{
             $id = $request->id;
             $info = DB::table('snow_news')->where('id',$id)->first();
-            return view('shop.addnews',['info'=>$info]);
+            return view('snow.addnews',['info'=>$info]);
         }
     }
 

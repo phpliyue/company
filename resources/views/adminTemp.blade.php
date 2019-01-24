@@ -6,12 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @section('css')
-        <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{URL::asset('css/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
-        <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
-        <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
-    @show
+    <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
     <title>@yield('title')</title>
 </head>
 <body class="pace-done">
@@ -49,10 +48,10 @@
                             <li class="@yield('navli0')"><a href="{{url('admin_index')}}">社区首页</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>
+                    <li class="@yield('nav1')">
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="index.html">新闻列表</a></li>
+                            <li class="@yield('navli10')"><a href="{{url('snow_news')}}">新闻列表</a></li>
                         </ul>
                     </li>
                     <li>

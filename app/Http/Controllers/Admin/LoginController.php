@@ -12,6 +12,7 @@ class LoginController extends Controller
     //登录
     public function login(Request $request)
     {
+        dd(md5('msqlx'));
         if($request->isMethod('post')){
             // 规则
             $rules = [

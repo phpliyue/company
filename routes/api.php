@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/*
+ * 公众号接口
+ */
+Route::get('wx_index','Api\WxtoolController@index');//公众号入口

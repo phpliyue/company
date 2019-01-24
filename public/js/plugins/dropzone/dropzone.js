@@ -111,7 +111,7 @@
          dropzone.on("dragEnter", function() { });
          */
 
-        Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
+        Dropzone.prototype.events = ["drop", "initimage", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
 
         Dropzone.prototype.defaultOptions = {
             url: null,
@@ -386,6 +386,23 @@
                 }
                 if (file.previewElement) {
                     return file.previewElement.classList.add("dz-complete");
+                }
+            },
+            initimage: function(info) {
+                if( info==null || !info ) return false;
+                var info_array = info.split(",");
+                for( var i in info_array )
+                {
+                    var hidefileval_str = info_array[i];
+                    var hidefileval_arr = hidefileval_str.split("/");
+                    var mockfile_object = { name: hidefileval_arr[hidefileval_arr.length-1], accepted:true };
+                    this.emit('addedfile', mockfile_object);
+                    this.emit('thumbnail', mockfile_object, hidefileval_str);
+                    //this.emit('success', mockfile_object);
+                    this.emit('processing', mockfile_object);
+                    this.emit('complete', mockfile_object);
+                    this.files.push( mockfile_object );
+                    mockfile_object = null;
                 }
             },
             completemultiple: noop,

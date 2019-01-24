@@ -28,4 +28,7 @@ Route::group(['middleware'=>'adminAuth'],function() {
     Route::post('/shop_upload', 'Shop\GoodsController@upload');//上传图片
     Route::get('/shop_cate', 'Shop\CateController@index');//类目
     Route::any('/shop_addcate/{id?}', 'Shop\CateController@addcate');//新增类目
+    Route::get('/snow_news','Snow\NewsController@news');//新闻列表
+    Route::any('/snow_addnews/{id?}','Snow\NewsController@addnews');//新增新闻
+    Route::get('/snow_delnews/{id}','Snow\NewsController@delnews');//删除新闻
 });

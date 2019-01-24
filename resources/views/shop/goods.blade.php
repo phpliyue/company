@@ -2,10 +2,6 @@
 @section('nav1','active')
 @section('navli10','active')
 @section('title','商品管理')
-@section('css')
-    @parent
-    <link href="{{URL::asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
-@show
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -60,13 +56,7 @@
 @endsection
 @section('js')
     @parent
-    <script src="{{URL::asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-    <script src="{{URL::asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
     <script src="{{URL::asset('js/plugins/dataTables/datatables.min.js')}}"></script>
-    <!-- Custom and plugin javascript -->
-    <script src="{{URL::asset('js/inspinia.js')}}"></script>
-    <script src="{{URL::asset('js/plugins/pace/pace.min.js')}}"></script>
-    <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
