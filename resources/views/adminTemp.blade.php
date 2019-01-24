@@ -24,83 +24,97 @@
                             <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
-                            <li class="divider"></li>
-                            <li><a href="login.html">Logout</a></li>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$user_info->name}}</strong>
+                             </span></span> </a>
+                        {{--<ul class="dropdown-menu animated fadeInRight m-t-xs">--}}
+                            {{--<li><a href="profile.html">Profile</a></li>--}}
+                            {{--<li><a href="contacts.html">Contacts</a></li>--}}
+                            {{--<li><a href="mailbox.html">Mailbox</a></li>--}}
+                            {{--<li class="divider"></li>--}}
+                            {{--<li><a href="login.html">Logout</a></li>--}}
+                        {{--</ul>--}}
+                    </div>
+                </li>
+                @if ($user_info->roleid == 1)
+                    <li class="@yield('nav0')">
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="@yield('navli0')"><a href="{{url('admin_index')}}">管理员首页</a></li>
                         </ul>
-                    </div>
-                    <div class="logo-element">
-                        IN+
-                    </div>
-                </li>
-                <li class="@yield('nav0')">
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        {{--<li class="@yield('navli0')"><a href="{{url('admin_index')}}">管理员首页</a></li>--}}
-                        {{--<li class="@yield('navli0')"><a href="{{url('admin_index')}}">社区首页</a></li>--}}
-                        {{--<li class="@yield('navli0')"><a href="{{url('admin_index')}}">商家首页</a></li>--}}
-                        <li class="@yield('navli0')"><a href="{{url('admin_index')}}">旅游首页</a></li>
-                    </ul>
-                </li>
-                {{--<li>--}}
-                    {{--<a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>--}}
-                    {{--<ul class="nav nav-second-level">--}}
-                        {{--<li><a href="index.html">新闻列表</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                    {{--<a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">账号管理</span> <span class="fa arrow"></span></a>--}}
-                    {{--<ul class="nav nav-second-level">--}}
-                        {{--<li><a href="index.html">人员列表</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-
-                {{--商品管理--}}
-                {{--<li class="@yield('nav1')">--}}
-                    {{--<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">商品管理</span> <span class="fa arrow"></span></a>--}}
-                    {{--<ul class="nav nav-second-level collapse">--}}
-                        {{--<li class="@yield('navli10')"><a href="{{url('shop_goods')}}">商品列表</a></li>--}}
-                        {{--<li class="@yield('navli11')"><a href="{{url('shop_cate')}}">类目列表</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-                {{--<li class="@yield('nav2')">--}}
-                    {{--<a href=""><i class="fa fa-th-large"></i> <span class="nav-label">订单管理</span> <span class="fa arrow"></span></a>--}}
-                    {{--<ul class="nav nav-second-level collapse">--}}
-                        {{--<li class="@yield('navli20')"><a href="{{url('shop_goods')}}">订单列表</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                    {{--<a href=""><i class="fa fa-th-large"></i> <span class="nav-label">账号管理</span> <span class="fa arrow"></span></a>--}}
-                    {{--<ul class="nav nav-second-level collapse">--}}
-                        {{--<li><a href="{{url('shop_goods')}}">人员管理</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-
-                {{--旅游管理--}}
-                <li class="@yield('nav1')">
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">商品管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li class="@yield('navli10')"><a href="{{url('shop_goods')}}">商品列表</a></li>
-                        <li class="@yield('navli11')"><a href="{{url('shop_cate')}}">类目列表</a></li>
-                    </ul>
-                </li>
-                <li class="@yield('nav2')">
-                    <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">订单管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li class="@yield('navli20')"><a href="{{url('shop_goods')}}">订单列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">账号管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li><a href="{{url('shop_goods')}}">人员管理</a></li>
-                    </ul>
-                </li>
+                    </li>
+                @elseif ($user_info->roleid == 2)
+                    <li class="@yield('nav0')">
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="@yield('navli0')"><a href="{{url('admin_index')}}">社区首页</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="index.html">新闻列表</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">账号管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="index.html">人员列表</a></li>
+                        </ul>
+                    </li>
+                @elseif ($user_info->roleid == 3)
+                    <li class="@yield('nav0')">
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="@yield('navli0')"><a href="{{url('admin_index')}}">商家首页</a></li>
+                        </ul>
+                    </li>
+                    <li class="@yield('nav1')">
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">商品管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li class="@yield('navli10')"><a href="{{url('shop_goods')}}">商品列表</a></li>
+                            <li class="@yield('navli11')"><a href="{{url('shop_cate')}}">类目列表</a></li>
+                        </ul>
+                    </li>
+                    <li class="@yield('nav2')">
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">订单管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li class="@yield('navli20')"><a href="{{url('shop_goods')}}">订单列表</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">账号管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{url('shop_goods')}}">人员管理</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li class="@yield('nav0')">
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="@yield('navli0')"><a href="{{url('admin_index')}}">旅游首页</a></li>
+                        </ul>
+                    </li>
+                    {{--旅游管理--}}
+                    {{--<li class="@yield('nav1')">--}}
+                        {{--<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">商品管理</span> <span class="fa arrow"></span></a>--}}
+                        {{--<ul class="nav nav-second-level collapse">--}}
+                            {{--<li class="@yield('navli10')"><a href="{{url('shop_goods')}}">商品列表</a></li>--}}
+                            {{--<li class="@yield('navli11')"><a href="{{url('shop_cate')}}">类目列表</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    {{--<li class="@yield('nav2')">--}}
+                        {{--<a href=""><i class="fa fa-th-large"></i> <span class="nav-label">订单管理</span> <span class="fa arrow"></span></a>--}}
+                        {{--<ul class="nav nav-second-level collapse">--}}
+                            {{--<li class="@yield('navli20')"><a href="{{url('shop_goods')}}">订单列表</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    <li>
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">账号管理</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{url('shop_goods')}}">人员管理</a></li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>

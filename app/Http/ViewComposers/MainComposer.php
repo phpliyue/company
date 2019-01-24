@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class MainComposer
 {
@@ -26,6 +27,7 @@ class MainComposer
     public function compose(View $view)
     {
         $token = session('token');
-        $view->with('token',$token);
+        $user_info = DB::table('admin_user')->where('token',$token)->first();
+        $view->with('user_info',$user_info);
     }
 }
