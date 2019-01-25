@@ -11,7 +11,8 @@ class WxtoolController extends Controller
     /**
      * 微信服务号回调验证
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $signature = $request->input('signature');
         $timestamp = $request->input('timestamp');
         $echostr = $request->input('echostr');
@@ -24,14 +25,15 @@ class WxtoolController extends Controller
             echo $echostr;//微信回调验证
             exit;
         }else{
-            $this->assWeChat();//用户事件
+            return false;
         }
     }
 
     /**
      * 关注服务号事件
      */
-    protected function assWeChat(){
+    protected function assWeChat()
+    {
         $data = file_get_contents('php://input');
         $obj = simplexml_load_string($data);
         $FromUserName = $obj->FromUserName;
@@ -52,7 +54,8 @@ class WxtoolController extends Controller
     /**
      * 回调xml文件模版
      */
-    public function getXML($FromUserName,$ToUserName,$content){
+    public function getXML($FromUserName,$ToUserName,$content)
+    {
         $tpl = "<xml>
                 <ToUserName><![CDATA[%s]]></ToUserName>
                 <FromUserName><![CDATA[%s]]></FromUserName>
@@ -68,7 +71,8 @@ class WxtoolController extends Controller
      * 获取 wxcool_access_token
      * 返回json格式   $access_token 512字符   expires_in：有效期  7200   默认两小时
      */
-    public function getWxAccessToken(){
+    public function getWxAccessToken()
+    {
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".config('wx.AppID')."&secret=".config('wx.AppSecret');
         $obj = file_get_contents($url);
         $obj = json_decode($obj,true);
@@ -80,7 +84,8 @@ class WxtoolController extends Controller
      * 参数  access_token    open_id
      * return $unionid  用户unionid
      */
-    private function getUserUnionId($open_id=''){
+    private function getUserUnionId($open_id='')
+    {
         $access_token = $this->getWxAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$open_id."&lang=zh_CN";
         $obj = $this->http_get_curl($url);
@@ -94,7 +99,8 @@ class WxtoolController extends Controller
     /**
      * 获取绑定用户基本信息
      */
-    public function getUserInfo($openid=''){
+    public function getUserInfo($openid='')
+    {
         $access_token = $this->getWxAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN";
         $result = $this->http_get_curl($url);
@@ -113,7 +119,8 @@ class WxtoolController extends Controller
     /**
      * 设置公众号底部导航
      */
-    public function setFooterButton(){
+    public function setFooterButton()
+    {
         $access_token = $this->getWxAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
         $data = '{
@@ -191,7 +198,8 @@ class WxtoolController extends Controller
      * 参数 $url：微信公众号各接口地址
      * 返回 obj
      */
-    private function http_get_curl($url){
+    private function http_get_curl($url)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
@@ -213,7 +221,8 @@ class WxtoolController extends Controller
      * 参数 $url：微信公众号各接口地址  data 数据参数
      * 返回 obj
      */
-    private function http_post_curl($url,$data=''){
+    private function http_post_curl($url,$data='')
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
