@@ -92,12 +92,12 @@ class WxtoolController extends Controller
                            "type":"view",
                            "name":"社区入驻",
                            "url":"https://www.msqlx.com"
-                         }，
+                         },
                          {
                            "type":"view",
                            "name":"商家入驻",
                            "url":"https://www.msqlx.com"
-                         }，
+                         },
                          {
                            "type":"view",
                            "name":"旅游入驻",
@@ -113,17 +113,17 @@ class WxtoolController extends Controller
                            "type":"view",
                            "name":"问题反馈",
                            "url":"https://www.msqlx.com"
-                         }，
+                         },
                          {
                            "type":"view",
                            "name":"帮助中心",
                            "url":"https://www.msqlx.com"
-                         }，
+                         },
                          {
                            "type":"view",
                            "name":"联系我们",
                            "url":"https://www.msqlx.com"
-                         }，
+                         },
                          {
                            "type":"view",
                            "name":"广告合作",
@@ -138,11 +138,21 @@ class WxtoolController extends Controller
     }
 
     /**
+     * 删除底部导航
+     */
+    public function delFooter()
+    {
+        $access_token = $this->getWxAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=".$access_token;
+        $this->http_post_curl($url);
+    }
+
+    /**
      * curl post 请求
      * 参数 $url：微信公众号各接口地址  data 数据参数
      * 返回 obj
      */
-    private function http_post_curl($url,$data){
+    private function http_post_curl($url,$data=''){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
