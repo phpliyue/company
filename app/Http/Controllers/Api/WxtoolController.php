@@ -68,7 +68,6 @@ class WxtoolController extends Controller
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".config('wx.AppID')."&secret=".config('wx.AppSecret');
         $obj = file_get_contents($url);
         $obj = json_decode($obj,true);
-        dd($obj);
         return $obj['access_token'];
     }
 
@@ -77,7 +76,6 @@ class WxtoolController extends Controller
      */
     public function setFooterButton(){
         $access_token = $this->getWxAccessToken();
-        dd($access_token);
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
         $data = '{
             "button": [
