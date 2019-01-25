@@ -21,9 +21,10 @@ class WxtoolController extends Controller
         sort($array);
         $hashcode = sha1(implode('', $array));
         if($hashcode == $signature && $echostr){
-            return $echostr;//微信回调验证
+            echo $echostr;//微信回调验证
+            exit;
         }else{
-            $this->assWeChat();
+            $this->assWeChat();//用户事件
         }
     }
 
