@@ -39,10 +39,10 @@ class WxtoolController extends Controller
         $EventKey = $obj->EventKey; //获取场景ID
         if(strtolower($obj->MsgType)=='event'){//事件
             if(strtolower($EventKey)=='subscribe' || strtolower($EventKey)=='scan'){//关注事件
-                $data = $this->getUserInfo($FromUserName);
-                $data['openid'] = $FromUserName;
-                $data['unionid'] = $this->getUserUnionId($FromUserName);//获取用户  unionId
-                $content = json_encode($data);
+//                $data = $this->getUserInfo($FromUserName);
+//                $data['openid'] = $FromUserName;
+//                $data['unionid'] = $this->getUserUnionId($FromUserName);//获取用户  unionId
+                $content = '11111';//json_encode($data);
                 $temp =  $this->getXML($FromUserName,$ToUserName,$content);//XML回复微信服务号
                 echo $temp;
             };
