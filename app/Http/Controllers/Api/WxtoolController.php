@@ -135,7 +135,8 @@ class WxtoolController extends Controller
                 }
             ]
         }';
-        $this->http_post_curl($url,$data);
+        $res = $this->http_post_curl($url,$data);
+        return $res;
     }
 
     /**
