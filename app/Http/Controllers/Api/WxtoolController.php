@@ -93,17 +93,17 @@ class WxtoolController extends Controller
                          {
                            "type":"view",
                            "name":"社区入驻",
-                           "url":""
+                           "url":"https://www.msqlx.com"
                          }，
                          {
                            "type":"view",
                            "name":"商家入驻",
-                           "url":""
+                           "url":"https://www.msqlx.com"
                          }，
                          {
                            "type":"view",
                            "name":"旅游入驻",
-                           "url":""
+                           "url":"https://www.msqlx.com"
                          }
                     ]
                 }
@@ -114,22 +114,22 @@ class WxtoolController extends Controller
                          {
                            "type":"view",
                            "name":"问题反馈",
-                           "url":""
+                           "url":"https://www.msqlx.com"
                          }，
                          {
                            "type":"view",
                            "name":"帮助中心",
-                           "url":""
+                           "url":"https://www.msqlx.com"
                          }，
                          {
                            "type":"view",
                            "name":"联系我们",
-                           "url":""
+                           "url":"https://www.msqlx.com"
                          }，
                          {
                            "type":"view",
                            "name":"广告合作",
-                           "url":""
+                           "url":"https://www.msqlx.com"
                          }
                     ]
                 }
