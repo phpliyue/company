@@ -15,7 +15,7 @@ class WxtoolController extends Controller
         $timestamp = $request->input('timestamp');
         $echostr = $request->input('echostr');
         $nonce = $request->input('nonce');
-        $token = '';
+        $token = 'msqlx0801';
         $array = array($token,$nonce,$timestamp);
         sort($array);
         $hashcode = sha1(implode('', $array));
@@ -23,7 +23,7 @@ class WxtoolController extends Controller
             echo $echostr;//微信回调验证
             exit;
         }else{
-            $this->assWeChat();//用户事件
+//            $this->assWeChat();//用户事件
         }
     }
     /**
