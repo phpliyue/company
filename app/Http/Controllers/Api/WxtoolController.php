@@ -80,7 +80,7 @@ class WxtoolController extends Controller
         $data = '{
             "button": [
                 {
-                    "type": "click",
+                    "type": "view",
                     "name": "雪球社区",
                     "url": "https://www.msqlx.com"
                 },
