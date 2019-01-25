@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class WxtoolController extends Controller
 {
@@ -22,7 +23,7 @@ class WxtoolController extends Controller
         if($hashcode == $signature && $echostr){
             return $echostr;//微信回调验证
         }else{
-            return false;
+            $this->assWeChat();
         }
     }
 
@@ -36,9 +37,11 @@ class WxtoolController extends Controller
         $ToUserName = $obj->ToUserName;
         $EventKey = $obj->EventKey; //获取场景ID
         if(strtolower($obj->MsgType)=='event'){//事件
-            if(strtolower($obj->Event)=='subscribe' || strtolower($obj->Event)=='scan'){//关注事件
-//                $unionId = $this->getUserUnionId($FromUserName);//获取用户  unionId
-                $content = '欢迎来到雪球社区！！！';
+            if(strtolower($EventKey)=='subscribe' || strtolower($EventKey)=='scan'){//关注事件
+                $data = $this->getUserInfo($FromUserName);
+                $data['openid'] = $FromUserName;
+                $data['unionid'] = $this->getUserUnionId($FromUserName);//获取用户  unionId
+                $content = json_encode($data);
                 $temp =  $this->getXML($FromUserName,$ToUserName,$content);//XML回复微信服务号
                 echo $temp;
             };
@@ -69,6 +72,41 @@ class WxtoolController extends Controller
         $obj = file_get_contents($url);
         $obj = json_decode($obj,true);
         return $obj['access_token'];
+    }
+
+    /**
+     * 获取用户UnionId
+     * 参数  access_token    open_id
+     * return $unionid  用户unionid
+     */
+    private function getUserUnionId($open_id=''){
+        $access_token = $this->getWxAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$open_id."&lang=zh_CN";
+        $obj = $this->http_get_curl($url);
+        $unionid = "";
+        if($obj){
+            $unionid = $obj->unionid;
+        };
+        return $unionid;
+    }
+
+    /**
+     * 获取绑定用户基本信息
+     */
+    public function getUserInfo($openid=''){
+        $access_token = $this->getWxAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN";
+        $result = $this->http_get_curl($url);
+        $data=array(
+            'nickname'    => $result->nickname,
+            'headimgurl'  => $result->headimgurl,
+            'sex'  => $result->sex,
+            'city'  => $result->city,
+            'country'  => $result->country,
+            'province'  => $result->province,
+            'subscribe_time' => $result->subscribe_time
+        );
+        return $data;
     }
 
     /**
@@ -145,6 +183,28 @@ class WxtoolController extends Controller
         $access_token = $this->getWxAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=".$access_token;
         $this->http_post_curl($url);
+    }
+
+    /**
+     * curl get 请求
+     * 参数 $url：微信公众号各接口地址
+     * 返回 obj
+     */
+    private function http_get_curl($url){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        if($output !== FALSE ){
+            $obj = json_decode($output);
+            return $obj;
+        }else{
+            return false;
+        }
     }
 
     /**
