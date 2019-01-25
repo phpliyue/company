@@ -75,7 +75,7 @@ class WxtoolController extends Controller
      * 设置公众号底部导航
      */
     public function setFooterButton(){
-        echo phpinfo();
+        echo phpinfo();die;
         dd(curl_init());
         $access_token = $this->getWxAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
