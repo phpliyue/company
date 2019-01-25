@@ -80,11 +80,9 @@ class WxtoolController extends Controller
         $data = '{
             "button": [
                 {
-                    "type": "miniprogram",
+                    "type": "click",
                     "name": "雪球社区",
-                    "url": "https://www.msqlx.com",
-                    "appid": "wx943a69cda83ce6f6",
-                    "pagepath": "pages/index/index"
+                    "url": "https://www.msqlx.com"
                 },
                 {
                     "type": "click",
@@ -106,7 +104,7 @@ class WxtoolController extends Controller
                            "url":"https://www.msqlx.com"
                          }
                     ]
-                }
+                },
                 {
                     "type": "click",
                     "name": "关于我们",
