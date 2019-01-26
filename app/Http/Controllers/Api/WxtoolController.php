@@ -8,28 +8,21 @@ use Illuminate\Support\Facades\DB;
 
 class WxtoolController extends Controller
 {
-    public function __construct(Request $request)
-    {
-        DB::table('meisi')->insert(['title'=>'3333333']);
-        $this->index($request);
-    }
 
     /**
      * 微信服务号回调验证
      */
-    public function index(Request $request)
+    public function index()
     {
-        DB::table('meisi')->insert(['title'=>'4444']);
-        $signature = $request->input('signature');
-        $timestamp = $request->input('timestamp');
-        $echostr = $request->input('echostr');
-        $nonce = $request->input('nonce');
+        $signature = isset($_GET["signature"])?$_GET["signature"]:'';
+        $timestamp = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
+        $echostr = isset($_GET["echostr"])?$_GET["echostr"]:'';
+        $nonce = isset($_GET["nonce"])?$_GET["nonce"]:'';
         $token = config('wx.Token');
         $array = array($token,$nonce,$timestamp);
         sort($array);
         $hashcode = sha1(implode('', $array));
         if($hashcode == $signature && $echostr){
-            DB::table('meisi')->insert(['title'=>$echostr]);
             echo $echostr;//微信回调验证
             exit;
         }else{
