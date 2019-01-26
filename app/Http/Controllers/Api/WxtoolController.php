@@ -25,7 +25,7 @@ class WxtoolController extends Controller
             echo $echostr;//微信回调验证
             exit;
         }else{
-            $this->responseMsg();//用户事件
+            $this->reponseMsg();//用户事件
         }
     }
 
@@ -49,9 +49,7 @@ class WxtoolController extends Controller
                 //回复用户消息(纯文本格式)
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
-//                $time     = time();
-//                $msgType  =  'text';
-                $content  = '欢迎关注我们的微信公众账号'.$postObj->FromUserName.'-'.$postObj->ToUserName;
+                $content  = '欢迎关注我们的微信公众账号'.$fromUser.'-'.$toUser;
                 $temp = $this->getXML($fromUser,$toUser,$content);
                 echo $temp;
             }
