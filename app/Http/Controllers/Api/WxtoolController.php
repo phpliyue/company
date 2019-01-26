@@ -25,29 +25,36 @@ class WxtoolController extends Controller
             echo $echostr;//微信回调验证
             exit;
         }else{
-            $this->assWeChat();//用户事件
+            $this->responseMsg();//用户事件
         }
     }
 
     /**
-     * 关注服务号事件
+     * 接收事件推送并回复
      */
-    protected function assWeChat()
-    {
-        $data = file_get_contents('php://input');
-        $obj = simplexml_load_string($data);
-        $FromUserName = $obj->FromUserName;
-        $ToUserName = $obj->ToUserName;
-        $EventKey = $obj->EventKey; //获取场景ID
-        if(strtolower($obj->MsgType)=='event'){//事件
-            if(strtolower($EventKey)=='subscribe' || strtolower($EventKey)=='scan'){//关注事件
-//                $data = $this->getUserInfo($FromUserName);
-//                $data['openid'] = $FromUserName;
-//                $data['unionid'] = $this->getUserUnionId($FromUserName);//获取用户  unionId
-                $content = '222222222';//json_encode($data);
-                $temp = $this->getXML($FromUserName,$ToUserName,$content);//XML回复微信服务号
+    public function reponseMsg(){
+        //1.获取到微信推送过来post数据（xml格式）
+        $postArr = file_get_contents("php://input");
+        //2.处理消息类型，并设置回复类型和内容
+        $postObj = simplexml_load_string( $postArr );
+        //$postObj->ToUserName = '';
+        //$postObj->FromUserName = '';
+        //$postObj->CreateTime = '';
+        //$postObj->MsgType = '';
+        //$postObj->Event = '';
+        //判断该数据包是否是订阅的事件推送
+        if( strtolower( $postObj->MsgType) == 'event'){
+            //如果是关注 subscribe 事件
+            if( strtolower($postObj->Event == 'subscribe') ){
+                //回复用户消息(纯文本格式)
+                $toUser   = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+//                $time     = time();
+//                $msgType  =  'text';
+                $content  = '欢迎关注我们的微信公众账号'.$postObj->FromUserName.'-'.$postObj->ToUserName;
+                $temp = $this->getXML($fromUser,$toUser,$content);
                 echo $temp;
-            };
+            }
         }
     }
 
