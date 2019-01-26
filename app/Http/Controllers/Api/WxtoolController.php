@@ -19,6 +19,7 @@ class WxtoolController extends Controller
      */
     public function index(Request $request)
     {
+        DB::table('meisi')->insert(['title'=>'4444']);
         $signature = $request->input('signature');
         $timestamp = $request->input('timestamp');
         $echostr = $request->input('echostr');
