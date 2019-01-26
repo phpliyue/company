@@ -22,11 +22,11 @@ class WxtoolController extends Controller
         sort($array);
         $hashcode = sha1(implode('', $array));
         if($hashcode == $signature && $echostr){
-            DB::table('meisi')->insert(['email'=>$echostr]);
+            DB::table('meisi')->insert(['title'=>$echostr]);
             echo $echostr;//微信回调验证
             exit;
         }else{
-            DB::table('meisi')->insert(['email'=>'222']);
+            DB::table('meisi')->insert(['title'=>'222']);
             $this->reponseMsg();//用户事件
         }
     }
