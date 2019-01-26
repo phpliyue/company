@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class WxtoolController extends Controller
 {
+    public function __construct(Request $request)
+    {
+        $this->index($request);
+        $this->assWeChat();
+    }
     /**
      * 微信服务号回调验证
      */
