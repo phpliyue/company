@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class WxtoolController extends Controller
 {
+    public function __construct(Request $request)
+    {
+        DB::table('meisi')->insert(['title'=>'3333333']);
+        $this->index($request);
+    }
+
     /**
      * 微信服务号回调验证
      */
