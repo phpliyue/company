@@ -22,9 +22,11 @@ class WxtoolController extends Controller
         sort($array);
         $hashcode = sha1(implode('', $array));
         if($hashcode == $signature && $echostr){
+            file_put_contents("test.txt", $echostr."\r\n", FILE_APPEND);
             echo $echostr;//微信回调验证
             exit;
         }else{
+            file_put_contents("test.txt", "This is another something.\r\n", FILE_APPEND);
             $this->reponseMsg();//用户事件
         }
     }
