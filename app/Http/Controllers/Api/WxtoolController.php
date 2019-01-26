@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class WxtoolController extends Controller
 {
-    public function __construct(Request $request)
-    {
-        $this->index($request);
-        $this->assWeChat();
-    }
     /**
      * 微信服务号回调验证
      */
@@ -30,7 +25,7 @@ class WxtoolController extends Controller
             echo $echostr;//微信回调验证
             exit;
         }else{
-            return false;
+            $this->assWeChat();//用户事件
         }
     }
 
@@ -49,8 +44,8 @@ class WxtoolController extends Controller
 //                $data = $this->getUserInfo($FromUserName);
 //                $data['openid'] = $FromUserName;
 //                $data['unionid'] = $this->getUserUnionId($FromUserName);//获取用户  unionId
-                $content = '11111';//json_encode($data);
-                $temp =  $this->getXML($FromUserName,$ToUserName,$content);//XML回复微信服务号
+                $content = '222222222';//json_encode($data);
+                $temp = $this->getXML($FromUserName,$ToUserName,$content);//XML回复微信服务号
                 echo $temp;
             };
         }
