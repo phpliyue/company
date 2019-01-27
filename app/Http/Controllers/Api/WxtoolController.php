@@ -14,21 +14,21 @@ class WxtoolController extends Controller
      */
     public function index()
     {
-//        $signature = isset($_GET["signature"])?$_GET["signature"]:'';
-//        $timestamp = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
-//        $echostr = isset($_GET["echostr"])?$_GET["echostr"]:'';
-//        $nonce = isset($_GET["nonce"])?$_GET["nonce"]:'';
-//        $token = config('wx.Token');
-//        $array = array($token,$nonce,$timestamp);
-//        sort($array);
-//        $hashcode = sha1(implode('', $array));
-//        if($hashcode == $signature && $echostr){
-//            echo $echostr;//微信回调验证
-//            exit;
-//        }else{
+        $signature = isset($_GET["signature"])?$_GET["signature"]:'';
+        $timestamp = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
+        $echostr = isset($_GET["echostr"])?$_GET["echostr"]:'';
+        $nonce = isset($_GET["nonce"])?$_GET["nonce"]:'';
+        $token = config('wx.Token');
+        $array = array($token,$nonce,$timestamp);
+        sort($array);
+        $hashcode = sha1(implode('', $array));
+        if($hashcode == $signature && $echostr){
+            echo $echostr;//微信回调验证
+            exit;
+        }else{
             DB::table('meisi')->insert(['title'=>'222']);
             $this->reponseMsg();//用户事件
-//        }
+        }
     }
 
     /**
@@ -48,7 +48,7 @@ class WxtoolController extends Controller
                 case 'subscribe':
                     $content = '欢迎关注我们的微信公众账号';
                 case 'click':
-                    DB::table('meisi')->insert(['title'=>'key值']);
+                    DB::table('meisi')->insert(['title'=>$postObj->Event]);
                     //获取key
                     $key = $postObj->Eventkey;
                     if($key == 'SNOW'){
