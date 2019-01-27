@@ -52,7 +52,7 @@ class WxtoolController extends Controller
                     //获取key
                     $key = $postObj->EventKey;
                     DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
-                    if($key == 'Snow'){
+                    if($key == 'SNOW'){
                         $content = '欢迎来到雪球社区';
                     }else{
                         $content = '欢迎key值';
@@ -81,13 +81,7 @@ class WxtoolController extends Controller
      */
     public function getXML($FromUserName,$ToUserName,$content)
     {
-        $tpl = "<xml>
-                <ToUserName>< ![CDATA[%s] ]></ToUserName>
-                <FromUserName>< ![CDATA[%s] ]></FromUserName>
-                <CreateTime>%d</CreateTime>
-                <MsgType>< ![CDATA[text] ]></MsgType>
-                <Content>< ![CDATA[%s] ]></Content>
-                </xml>";
+        $tpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s] ]></Content></xml>";
         $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
         return $temp;
     }
@@ -153,7 +147,7 @@ class WxtoolController extends Controller
                 {
                     "type": "click",
                     "name": "雪球社区",
-                    "key": "Snow"
+                    "key": "SNOW"
                 },
                 {
                     "type": "click",
