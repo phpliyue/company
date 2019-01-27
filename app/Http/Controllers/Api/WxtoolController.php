@@ -45,14 +45,14 @@ class WxtoolController extends Controller
         if( strtolower( $postObj->MsgType) == 'event'){
             //如果是关注 subscribe 事件
             switch(strtolower($postObj->Event)){
-                case "subscribe":
+                case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
                     break;
-                case "click":
-                    DB::table('meisi')->insert(['title'=>$postObj->Eventkey.','.$fromUser.','.$toUser]);
+                case "click"://点击菜单
                     //获取key
-                    $key = $postObj->Eventkey;
-                    if($key == 'SNOW'){
+                    $key = $postObj->EventKey;
+                    DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
+                    if($key == 'Snow'){
                         $content = '欢迎来到雪球社区';
                     }else{
                         $content = '欢迎key值';
@@ -64,6 +64,12 @@ class WxtoolController extends Controller
             }
             //回复用户消息(纯文本格式)
             $temp = $this->getXML($fromUser,$toUser,$content);
+            echo $temp;
+        }
+        if( strtolower($postObj->MsgType) == 'text'){
+            $mes = $postObj->Content;
+            DB::table('meisi')->insert(['title'=> $mes]);
+            $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
             echo $temp;
         }
     }
@@ -145,7 +151,7 @@ class WxtoolController extends Controller
                 {
                     "type": "click",
                     "name": "雪球社区",
-                    "key": "SNOW"
+                    "key": "Snow"
                 },
                 {
                     "type": "click",
