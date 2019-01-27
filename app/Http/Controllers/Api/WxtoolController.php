@@ -66,7 +66,7 @@ class WxtoolController extends Controller
             $temp = $this->getXML($fromUser,$toUser,$content);
             echo $temp;
         }
-        if( strtolower($postObj->MsgType) == 'text'){
+        if(strtolower($postObj->MsgType) == 'text'){
             $mes = $postObj->Content;
             DB::table('meisi')->insert(['title'=> $mes]);
             $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
@@ -79,6 +79,7 @@ class WxtoolController extends Controller
      */
     public function getXML($FromUserName,$ToUserName,$content)
     {
+        DB::table('meisi')->insert(['title'=>'33333']);
         $tpl = "<xml>
                 <ToUserName><![CDATA[%s]]></ToUserName>
                 <FromUserName><![CDATA[%s]]></FromUserName>
@@ -86,6 +87,7 @@ class WxtoolController extends Controller
                 <MsgType><![CDATA[text]]></MsgType>
                 <Content><![CDATA[%s]]></Content>
                 </xml>";
+        DB::table('meisi')->insert(['title'=>'44444']);
         $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
         return $temp;
     }
