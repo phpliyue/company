@@ -47,14 +47,24 @@ class WxtoolController extends Controller
         //判断该数据包是否是订阅的事件推送
         if( strtolower( $postObj->MsgType) == 'event'){
             //如果是关注 subscribe 事件
-            if( strtolower($postObj->Event == 'subscribe') ){
-                //回复用户消息(纯文本格式)
-                $toUser   = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
-                $content  = '欢迎关注我们的微信公众账号'.$fromUser.'-'.$toUser;
-                $temp = $this->getXML($fromUser,$toUser,$content);
-                echo $temp;
+            switch(strtolower($postObj->Event)){
+                case 'subscribe':
+                    $content = '欢迎关注我们的微信公众账号';
+                case 'click':
+                    DB::table('meisi')->insert(['title'=>'key值']);
+                    //获取key
+                    $key = $postObj->Eventkey;
+                    if($key == 'SNOW'){
+                        $content = '欢迎来到雪球社区';
+                    }else{
+                        $content = '欢迎key值';
+                    }
             }
+            //回复用户消息(纯文本格式)
+            $toUser   = $postObj->FromUserName;
+            $fromUser = $postObj->ToUserName;
+            $temp = $this->getXML($fromUser,$toUser,$content);
+            echo $temp;
         }
     }
 
@@ -133,9 +143,9 @@ class WxtoolController extends Controller
         $data = '{
             "button": [
                 {
-                    "type": "view",
+                    "type": "click",
                     "name": "雪球社区",
-                    "url": "https://www.msqlx.com"
+                    "key": "SNOW"
                 },
                 {
                     "type": "click",
