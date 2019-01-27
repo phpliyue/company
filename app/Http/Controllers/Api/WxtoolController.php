@@ -39,33 +39,29 @@ class WxtoolController extends Controller
         $postArr = file_get_contents("php://input");
         //2.处理消息类型，并设置回复类型和内容
         $postObj = simplexml_load_string( $postArr );
-        //$postObj->ToUserName = '';
-        //$postObj->FromUserName = '';
-        //$postObj->CreateTime = '';
-        //$postObj->MsgType = '';
-        //$postObj->Event = '';
-        //判断该数据包是否是订阅的事件推送
-        if( strtolower( $postObj->MsgType) == 'event'){
-            //如果是关注 subscribe 事件
-            switch(strtolower($postObj->Event)){
-                case 'subscribe':
-                    $content = '欢迎关注我们的微信公众账号';
-                case 'click':
-                    DB::table('meisi')->insert(['title'=>'key值']);
-                    //获取key
-                    $key = $postObj->Eventkey;
-                    if($key == 'SNOW'){
-                        $content = '欢迎来到雪球社区';
-                    }else{
-                        $content = '欢迎key值';
-                    }
-            }
+        $toUser = $postObj->FromUserName;
+        $fromUser = $postObj->ToUserName;
+        $content = '欢迎关注我们的微信公众账号';
+//        //判断该数据包是否是订阅的事件推送
+//        if( strtolower( $postObj->MsgType) == 'event'){
+//            //如果是关注 subscribe 事件
+//            switch(strtolower($postObj->Event)){
+//                case 'subscribe':
+//                    $content = '欢迎关注我们的微信公众账号';
+//                case 'click':
+//                    DB::table('meisi')->insert(['title'=>'key值']);
+//                    //获取key
+//                    $key = $postObj->Eventkey;
+//                    if($key == 'SNOW'){
+//                        $content = '欢迎来到雪球社区';
+//                    }else{
+//                        $content = '欢迎key值';
+//                    }
+//            }
             //回复用户消息(纯文本格式)
-            $toUser   = $postObj->FromUserName;
-            $fromUser = $postObj->ToUserName;
             $temp = $this->getXML($fromUser,$toUser,$content);
             echo $temp;
-        }
+//        }
     }
 
     /**
