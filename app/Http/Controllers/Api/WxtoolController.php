@@ -45,10 +45,11 @@ class WxtoolController extends Controller
         if( strtolower( $postObj->MsgType) == 'event'){
             //如果是关注 subscribe 事件
             switch(strtolower($postObj->Event)){
-                case 'subscribe':
+                case "subscribe":
                     $content = '欢迎关注我们的微信公众账号';
-                case 'click':
-                    DB::table('meisi')->insert(['title'=>$postObj->Event]);
+                    break;
+                case "click":
+                    DB::table('meisi')->insert(['title'=>$postObj->Eventkey]);
                     //获取key
                     $key = $postObj->Eventkey;
                     if($key == 'SNOW'){
@@ -56,6 +57,10 @@ class WxtoolController extends Controller
                     }else{
                         $content = '欢迎key值';
                     }
+                    break;
+                default:
+                    $content = '欢迎关注我们的微信公众账号';
+                    break;
             }
             //回复用户消息(纯文本格式)
             $temp = $this->getXML($fromUser,$toUser,$content);
