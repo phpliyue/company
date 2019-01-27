@@ -14,7 +14,6 @@ class WxtoolController extends Controller
      */
     public function index()
     {
-        dd(time());
         $signature = isset($_GET["signature"])?$_GET["signature"]:'';
         $timestamp = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
         $echostr = isset($_GET["echostr"])?$_GET["echostr"]:'';
@@ -70,8 +69,9 @@ class WxtoolController extends Controller
         if(strtolower($postObj->MsgType) == 'text'){
             $mes = $postObj->Content;
             DB::table('meisi')->insert(['title'=> $mes]);
-            $tpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s] ]></Content></xml>";
-            $temp = sprintf($tpl,$postObj->FromUserName,$postObj->ToUserName,time(),$mes);
+            $temp = $this->getXML($postObj->FromUserName,$postObj->ToUserName,$mes);
+//            $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
+            DB::table('meisi')->insert(['title'=>$temp]);
             echo $temp;
         }
     }
@@ -81,7 +81,13 @@ class WxtoolController extends Controller
      */
     public function getXML($FromUserName,$ToUserName,$content)
     {
-        $tpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s] ]></Content></xml>";
+        $tpl = "<xml>
+              <ToUserName><![CDATA[%s]]></ToUserName>
+                <FromUserName><![CDATA[%s]]></FromUserName>
+                <CreateTime>%d</CreateTime>
+                <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA[%s]]></Content>
+                </xml>";
         $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
         return $temp;
     }
