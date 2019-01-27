@@ -49,7 +49,7 @@ class WxtoolController extends Controller
                     $content = '欢迎关注我们的微信公众账号';
                     break;
                 case "click":
-                    DB::table('meisi')->insert(['title'=>$postObj->Eventkey]);
+                    DB::table('meisi')->insert(['title'=>$postObj->Eventkey.','.$fromUser.','.$toUser]);
                     //获取key
                     $key = $postObj->Eventkey;
                     if($key == 'SNOW'){
