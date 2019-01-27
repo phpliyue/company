@@ -14,21 +14,21 @@ class WxtoolController extends Controller
      */
     public function index()
     {
-//        $signature = isset($_GET["signature"])?$_GET["signature"]:'';
-//        $timestamp = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
-//        $echostr = isset($_GET["echostr"])?$_GET["echostr"]:'';
-//        $nonce = isset($_GET["nonce"])?$_GET["nonce"]:'';
-//        $token = config('wx.Token');
-//        $array = array($token,$nonce,$timestamp);
-//        sort($array);
-//        $hashcode = sha1(implode('', $array));
-//        if($hashcode == $signature && $echostr){
-//            echo $echostr;//微信回调验证
-//            exit;
-//        }else{
+        $signature = isset($_GET["signature"])?$_GET["signature"]:'';
+        $timestamp = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
+        $echostr = isset($_GET["echostr"])?$_GET["echostr"]:'';
+        $nonce = isset($_GET["nonce"])?$_GET["nonce"]:'';
+        $token = config('wx.Token');
+        $array = array($token,$nonce,$timestamp);
+        sort($array);
+        $hashcode = sha1(implode('', $array));
+        if($hashcode == $signature && $echostr){
+            echo $echostr;//微信回调验证
+            exit;
+        }else{
             DB::table('meisi')->insert(['title'=>'222']);
             $this->reponseMsg();//用户事件
-//        }
+        }
     }
 
     /**
@@ -41,23 +41,22 @@ class WxtoolController extends Controller
         $postObj = simplexml_load_string( $postArr );
         $toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;
-        $content = '欢迎关注我们的微信公众账号';
-//        //判断该数据包是否是订阅的事件推送
-//        if( strtolower( $postObj->MsgType) == 'event'){
-//            //如果是关注 subscribe 事件
-//            switch(strtolower($postObj->Event)){
-//                case 'subscribe':
-//                    $content = '欢迎关注我们的微信公众账号';
-//                case 'click':
-//                    DB::table('meisi')->insert(['title'=>'key值']);
-//                    //获取key
-//                    $key = $postObj->Eventkey;
-//                    if($key == 'SNOW'){
-//                        $content = '欢迎来到雪球社区';
-//                    }else{
-//                        $content = '欢迎key值';
-//                    }
-//            }
+        //判断该数据包是否是订阅的事件推送
+        if( strtolower( $postObj->MsgType) == 'event'){
+            //如果是关注 subscribe 事件
+            switch(strtolower($postObj->Event)){
+                case 'subscribe':
+                    $content = '欢迎关注我们的微信公众账号';
+                case 'click':
+                    DB::table('meisi')->insert(['title'=>'key值']);
+                    //获取key
+                    $key = $postObj->Eventkey;
+                    if($key == 'SNOW'){
+                        $content = '欢迎来到雪球社区';
+                    }else{
+                        $content = '欢迎key值';
+                    }
+            }
             //回复用户消息(纯文本格式)
             $temp = $this->getXML($fromUser,$toUser,$content);
             echo $temp;
