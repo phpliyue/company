@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class WxtoolController extends Controller
 {
-
     /**
      * 微信服务号回调验证
      */
@@ -62,8 +61,8 @@ class WxtoolController extends Controller
                     $content = '欢迎关注我们的微信公众账号';
                     break;
             }
-            //回复用户消息(纯文本格式)
-            $temp = $this->getXML($fromUser,$toUser,$content);
+            //回复用户消息(纯文本格式)$fromUser,$toUser,$content
+            $temp = $this->getXML();
             echo $temp;
         }
         if(strtolower($postObj->MsgType) == 'text'){
@@ -77,9 +76,9 @@ class WxtoolController extends Controller
     }
 
     /**
-     * 回调xml文件模版
+     * 回调xml文件模版$FromUserName,$ToUserName,$content
      */
-    public function getXML($FromUserName,$ToUserName,$content)
+    public function getXML()
     {
         // $tpl = "<xml>
         //         <ToUserName><![CDATA[%s]]></ToUserName>
@@ -88,9 +87,19 @@ class WxtoolController extends Controller
         //         <MsgType><![CDATA[text]]></MsgType>
         //         <Content><![CDATA[%s]]></Content>
         //         </xml>";
-        $tpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content></xml>";
-        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
-        return $temp;
+        // $FromUserName = 'gh_3326758fa970';
+        // $ToUserName = 'ocLpZ00L2548oLkkrKkY0rUNaeu2Y';
+        // $content = '你好';
+        $tpl = "<xml>
+ <ToUserName>Li-yue</ToUserName>
+ <FromUserName>wx3ee46e3c134497a6</FromUserName>
+ <CreateTime>1548637474 </CreateTime>
+ <MsgType>text</MsgType>
+ <Content>你好</Content>
+</xml>";
+        // $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
+        echo $tpl;
+
     }
 
     /**
