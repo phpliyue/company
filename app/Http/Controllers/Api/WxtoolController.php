@@ -14,7 +14,6 @@ class WxtoolController extends Controller
      */
     public function index()
     {
-        echo phpinfo();die;
         $signature = isset($_GET["signature"])?$_GET["signature"]:'';
         $timestamp = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
         $echostr = isset($_GET["echostr"])?$_GET["echostr"]:'';
@@ -39,7 +38,8 @@ class WxtoolController extends Controller
         //1.获取到微信推送过来post数据（xml格式）
         $postArr = file_get_contents("php://input");
         //2.处理消息类型，并设置回复类型和内容
-        $postObj = simplexml_load_string( $postArr );
+        $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
+        DB::table('meisi')->insert(['title'=>json_encode($postObj)]);
         $toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;
         //判断该数据包是否是订阅的事件推送
