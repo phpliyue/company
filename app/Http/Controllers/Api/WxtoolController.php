@@ -39,6 +39,7 @@ class WxtoolController extends Controller
         $postArr = file_get_contents("php://input");
         //2.处理消息类型，并设置回复类型和内容
         $postObj = simplexml_load_string( $postArr );
+        DB::table('meisi')->insert(['title'=>json_encode($postObj)]);
         $toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;
         //判断该数据包是否是订阅的事件推送
