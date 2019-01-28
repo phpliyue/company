@@ -81,7 +81,13 @@ class WxtoolController extends Controller
      */
     public function getXML($FromUserName,$ToUserName,$content)
     {
-        $tpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content></xml>";
+        $tpl = "<xml>
+           <ToUserName><![CDATA[gh_6541541b6a5b]]></ToUserName>
+           <FromUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></FromUserName>
+           <CreateTime>1395658920</CreateTime>
+           <MsgType><![CDATA[text]]></MsgType>
+           <Content><![CDATA[TEMPLATESENDJOBFINISH]]></Content>
+           </xml>";
         DB::table('meisi')->insert(['title'=> $tpl]);
         $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
         return $temp;
