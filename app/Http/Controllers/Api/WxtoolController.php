@@ -67,14 +67,13 @@ class WxtoolController extends Controller
             echo $temp;
         }
         if(strtolower($postObj->MsgType) == 'text'){
-            $mes = $postObj->Content;
-            DB::table('meisi')->insert(['title'=> $mes]);
-//            $temp = $this->getXML($postObj->FromUserName,$postObj->ToUserName,$mes);
-//            $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
-            $tpl = "<xml><ToUserName><![CDATA[gh_6541541b6a5b]]></ToUserName><FromUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></FromUserName><CreateTime>1548661587</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[我是咔咔]]></Content></xml>";
-            $temp = $tpl; //sprintf($tpl,$mes);
-            DB::table('meisi')->insert(['title'=>$temp]);
-            echo $temp;
+            return view('weixin.index',['message'=>$postObj]);
+////            $temp = $this->getXML($postObj->FromUserName,$postObj->ToUserName,$mes);
+////            $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
+//            $tpl = "<xml><ToUserName><![CDATA[gh_6541541b6a5b]]></ToUserName><FromUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></FromUserName><CreateTime>1548661587</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[我是咔咔]]></Content></xml>";
+//            $temp = $tpl; //sprintf($tpl,$mes);
+//            DB::table('meisi')->insert(['title'=>$temp]);
+//            echo $temp;
         }
     }
 
