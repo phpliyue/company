@@ -72,7 +72,7 @@ class WxtoolController extends Controller
 //            $temp = $this->getXML($postObj->FromUserName,$postObj->ToUserName,$mes);
 //            $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
             $tpl = "<xml><FromUserName><![CDATA[%s]]></FromUserName><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content></xml>";
-            $temp = sprintf($tpl,$toUser,$mes);
+            $temp = $tpl;//sprintf($tpl,$toUser,$mes);
             DB::table('meisi')->insert(['title'=>$temp]);
             echo $temp;
         }
