@@ -89,8 +89,8 @@ class WxtoolController extends Controller
            <Content><![CDATA[TEMPLATESENDJOBFINISH]]></Content>
            </xml>";
         DB::table('meisi')->insert(['title'=> $tpl]);
-        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
-        return $temp;
+//        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
+        return $tpl;
     }
 
     /**
