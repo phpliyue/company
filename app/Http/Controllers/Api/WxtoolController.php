@@ -65,7 +65,7 @@ class WxtoolController extends Controller
             //回复用户消息(纯文本格式)
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             $temp = $this->getXML($toUser,$fromUser,$content);
-             DB::table('meisi')->insert(['default'=>$temp]);
+             DB::table('meisi')->insert(['detail'=>$temp]);
             $time = time();
             $ss = "<xml>
  <ToUserName>$toUser</ToUserName>
@@ -74,7 +74,7 @@ class WxtoolController extends Controller
  <MsgType>text</MsgType>
  <Content>$content</Content>
  </xml>";
- DB::table('meisi')->insert(['title'=>$ss]);
+ DB::table('meisi')->insert(['detail'=>$ss]);
             echo "<xml>
  <ToUserName>$toUser</ToUserName>
  <FromUserName>$fromUser</FromUserName>
@@ -108,9 +108,9 @@ class WxtoolController extends Controller
 <Content>$content</Content>
 </xml>";
 
-        DB::table('meisi')->insert(['title'=> $tpl]);
+        // DB::table('meisi')->insert(['title'=> $tpl]);
 //        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
-        echo $tpl;
+        return $tpl;
     }
 
     /**
