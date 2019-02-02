@@ -64,8 +64,14 @@ class WxtoolController extends Controller
             }
             //回复用户消息(纯文本格式)
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
-            $temp = $this->getXML($fromUser,$toUser,$content);
-            echo $temp;
+            // $temp = $this->getXML($fromUser,$toUser,$content);
+            echo "<xml>
+ <ToUserName>gh_6541541b6a5b</ToUserName>
+ <FromUserName>oqEyo1LaUZuw6cVbRz2TsCnnUSEc</FromUserName>
+ <CreateTime>1395658920</CreateTime>
+ <MsgType>text</MsgType>
+ <Content>546</Content>
+ </xml>";
         }
         if(strtolower($postObj->MsgType) == 'text'){
             return view('weixin.index',['message'=>$postObj]);
