@@ -66,12 +66,12 @@ class WxtoolController extends Controller
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             $temp = $this->getXML($toUser,$fromUser,$content);
             echo "<xml>
-               <ToUserName>$toUser</ToUserName>
-               <FromUserName>$fromUser</FromUserName>
-               <CreateTime>1549127985 </CreateTime>
-               <MsgType>text</MsgType>
-               <Content>$content</Content>
-               </xml>";
+ <ToUserName>oqEyo1LaUZuw6cVbRz2TsCnnUSEc</ToUserName>
+ <FromUserName>gh_6541541b6a5b</FromUserName>
+ <CreateTime>1395658920</CreateTime>
+ <MsgType>text</MsgType>
+ <Content>546</Content>
+ </xml>";
         }
         if(strtolower($postObj->MsgType) == 'text'){
             return view('weixin.index',['message'=>$postObj]);
