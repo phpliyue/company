@@ -67,7 +67,7 @@ class WxtoolController extends Controller
             // $temp = $this->getXML($fromUser,$toUser,$content);
             echo "<xml>
  <ToUserName>$toUser</ToUserName>
- <FromUserName>gh_6541541b6a5b</FromUserName>
+ <FromUserName>$fromUser</FromUserName>
  <CreateTime>1395658920</CreateTime>
  <MsgType>text</MsgType>
  <Content>$content</Content>
