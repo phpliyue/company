@@ -65,7 +65,7 @@ class WxtoolController extends Controller
             //回复用户消息(纯文本格式)
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             $temp = $this->getXML($toUser,$fromUser,$content);
-             DB::table('meisi')->insert(['title'=>$temp]);
+             DB::table('meisi')->insert(['default'=>$temp]);
             $time = time();
             $ss = "<xml>
  <ToUserName>$toUser</ToUserName>
