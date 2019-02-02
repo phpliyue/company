@@ -102,7 +102,7 @@ class WxtoolController extends Controller
 
         DB::table('meisi')->insert(['title'=> $tpl]);
 //        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
-        return $tpl;
+        echo $tpl;
     }
 
     /**
