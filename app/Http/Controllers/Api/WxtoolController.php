@@ -64,7 +64,7 @@ class WxtoolController extends Controller
             }
             //回复用户消息(纯文本格式)
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
-            $temp = $this->getXML($toUser,$fromUser,$content);
+            // $temp = $this->getXML($fromUser,$toUser,$content);
             echo "<xml>
  <ToUserName>oqEyo1LaUZuw6cVbRz2TsCnnUSEc</ToUserName>
  <FromUserName>gh_6541541b6a5b</FromUserName>
@@ -87,19 +87,19 @@ class WxtoolController extends Controller
     /**
      * 回调xml文件模版
      */
-    public function getXML($ToUserName,$FromUserName,$content)
+    public function getXML($FromUserName,$ToUserName,$content)
     {
         $tpl = "<xml>
            <ToUserName><![CDATA[%s]]></ToUserName>
            <FromUserName><![CDATA[%s]]></FromUserName>
            <CreateTime>%d</CreateTime>
            <MsgType><![CDATA[text]]></MsgType>
-           <Content><![CDATA[%s]]></Content>
+           <Content><![CDATA[kdfjskdjfl]]></Content>
            </xml>";
 
         DB::table('meisi')->insert(['title'=> $tpl]);
-       $temp = sprintf($tpl,$ToUserName,$FromUserName,time(),$content);
-        return $temp;
+//        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
+        return $tpl;
     }
 
     /**
