@@ -62,10 +62,17 @@ class WxtoolController extends Controller
                     $content = '欢迎关注我们的微信公众账号';
                     break;
             }
+            $time = time();
             //回复用户消息(纯文本格式)
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             $temp = $this->getXML($toUser,$fromUser,$content);
-            echo $temp;
+            echo "<xml>
+     <ToUserName>$toUser</ToUserName>
+     <FromUserName>$fromUser</FromUserName>
+     <CreateTime>$time</CreateTime>
+     <MsgType>text</MsgType>
+     <Content>$content</Content>
+     </xml>";
         }
         if(strtolower($postObj->MsgType) == 'text'){
             return view('weixin.index',['message'=>$postObj]);
