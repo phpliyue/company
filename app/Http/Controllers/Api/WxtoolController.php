@@ -89,7 +89,7 @@ class WxtoolController extends Controller
     /**
      * 回调xml文件模版
      */
-    public function getXML($FromUserName,$ToUserName,$content)
+    public function getXML($toUser,$fromUser,$content)
     {
       $time = time();
         $tpl = "<xml>
