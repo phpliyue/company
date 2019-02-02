@@ -51,7 +51,7 @@ class WxtoolController extends Controller
                 case "click"://点击菜单
                     //获取key
                     $key = $postObj->EventKey;
-                    DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
+
                     if($key == 'SNOW'){
                         $content = '欢迎来到雪球社区';
                     }else{
@@ -63,6 +63,7 @@ class WxtoolController extends Controller
                     break;
             }
             //回复用户消息(纯文本格式)
+            DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             $temp = $this->getXML($fromUser,$toUser,$content);
             echo $temp;
         }
