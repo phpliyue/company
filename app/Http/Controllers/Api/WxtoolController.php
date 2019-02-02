@@ -64,14 +64,8 @@ class WxtoolController extends Controller
             }
             //回复用户消息(纯文本格式)
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
-            // $temp = $this->getXML($fromUser,$toUser,$content);
-            echo "<xml>
- <ToUserName>oqEyo1LaUZuw6cVbRz2TsCnnUSEc</ToUserName>
- <FromUserName>gh_6541541b6a5b</FromUserName>
- <CreateTime>1395658920</CreateTime>
- <MsgType>text</MsgType>
- <Content>546</Content>
- </xml>";
+            $temp = $this->getXML($toUser,$fromUser,$content);
+            echo $temp;
         }
         if(strtolower($postObj->MsgType) == 'text'){
             return view('weixin.index',['message'=>$postObj]);
@@ -87,19 +81,19 @@ class WxtoolController extends Controller
     /**
      * 回调xml文件模版
      */
-    public function getXML($FromUserName,$ToUserName,$content)
+    public function getXML($ToUserName,$FromUserName,$content)
     {
         $tpl = "<xml>
-           <ToUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></ToUserName>
-           <FromUserName><![CDATA[Li-yue]]></FromUserName>
-           <CreateTime>1395658920</CreateTime>
+           <ToUserName><![CDATA[%s]]></ToUserName>
+           <FromUserName><![CDATA[%s]]></FromUserName>
+           <CreateTime>%d</CreateTime>
            <MsgType><![CDATA[text]]></MsgType>
-           <Content><![CDATA[kdfjskdjfl]]></Content>
+           <Content><![CDATA[%s]]></Content>
            </xml>";
 
         DB::table('meisi')->insert(['title'=> $tpl]);
-//        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
-        return $tpl;
+       $temp = sprintf($tpl,$ToUserName,$FromUserName,time(),$content);
+        return $temp;
     }
 
     /**
