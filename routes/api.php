@@ -23,3 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::any('wx_index','Api\WxtoolController@index');//公众号入口
 Route::get('setFooterButton','Api\WxtoolController@setFooterButton');//设置底部导航栏
 Route::get('delFooter','Api\WxtoolController@delFooter');//删除底部导航栏
+
+// 测试
+Route::get('test','Api\WxtoolController@test');

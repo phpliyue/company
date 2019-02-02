@@ -267,4 +267,8 @@ class WxtoolController extends Controller
             return false;
         }
     }
+    public function test()
+    {
+      return 'test data';
+    }
 }
