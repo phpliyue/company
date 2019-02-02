@@ -70,7 +70,7 @@ class WxtoolController extends Controller
  <FromUserName>gh_6541541b6a5b</FromUserName>
  <CreateTime>1395658920</CreateTime>
  <MsgType>text</MsgType>
- <Content>546</Content>
+ <Content>$content</Content>
  </xml>";
         }
         if(strtolower($postObj->MsgType) == 'text'){
