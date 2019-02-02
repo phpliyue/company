@@ -86,13 +86,14 @@ class WxtoolController extends Controller
         $tpl = "<xml>
  <ToUserName><![CDATA[%s]]></ToUserName>
  <FromUserName><![CDATA[%s]]></FromUserName>
- <CreateTime>%s</CreateTime>
+ <CreateTime><![CDATA[%s]]></CreateTime>
  <MsgType><![CDATA[text]]></MsgType>
  <Content><![CDATA[%s]]></Content>
  </xml>";
 
         DB::table('meisi')->insert(['title'=> $tpl]);
        $temp = sprintf($tpl,$toUser,$fromUser,time(),$content);
+       // $item_str = sprintf($itemTpl, $musicArray['Title'], $musicArray['Description'], $musicArray['MusicUrl'],
         return $temp;
     }
 
