@@ -75,7 +75,13 @@ class WxtoolController extends Controller
  <Content>$content</Content>
  </xml>";
  DB::table('meisi')->insert(['detail'=>$ss]);
-            echo $temp;
+            echo "<xml>
+ <ToUserName>$toUser</ToUserName>
+ <FromUserName>$fromUser</FromUserName>
+ <CreateTime>$time</CreateTime>
+ <MsgType>text</MsgType>
+ <Content>$content</Content>
+ </xml>";
         }
         if(strtolower($postObj->MsgType) == 'text'){
             return view('weixin.index',['message'=>$postObj]);
@@ -93,18 +99,26 @@ class WxtoolController extends Controller
      */
     public function getXML($toUser,$fromUser,$content)
     {
-      $time = time();
-        $tpl = "<xml>
-<ToUserName>$toUser</ToUserName>
-<FromUserName>$fromUser</FromUserName>
-<CreateTime>$time</CreateTime>
+//       $time = time();
+//         $tpl = "<xml>
+// <ToUserName>$toUser</ToUserName>
+// <FromUserName>$fromUser</FromUserName>
+// <CreateTime>$time</CreateTime>
+// <MsgType>text</MsgType>
+// <Content>$content</Content>
+// </xml>";
+// $time = time();
+  $tpl = "<xml>
+<ToUserName><![CDATA[%s]]></ToUserName>
+<FromUserName><![CDATA[%s]]></FromUserName>
+<CreateTime>%d</CreateTime>
 <MsgType>text</MsgType>
-<Content>$content</Content>
+<Content><![CDATA[%s]]></Content>
 </xml>";
 
         // DB::table('meisi')->insert(['title'=> $tpl]);
-//        $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
-        return $tpl;
+       $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
+        return $temp;
     }
 
     /**
