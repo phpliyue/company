@@ -84,8 +84,8 @@ class WxtoolController extends Controller
     public function getXML($FromUserName,$ToUserName,$content)
     {
         $tpl = "<xml>
-           <ToUserName><![CDATA[Li-yue]]></ToUserName>
-           <FromUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></FromUserName>
+           <ToUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></ToUserName>
+           <FromUserName><![CDATA[Li-yue]]></FromUserName>
            <CreateTime>1395658920</CreateTime>
            <MsgType><![CDATA[text]]></MsgType>
            <Content><![CDATA[kdfjskdjfl]]></Content>
