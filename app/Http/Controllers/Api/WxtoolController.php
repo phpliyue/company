@@ -65,10 +65,11 @@ class WxtoolController extends Controller
             //回复用户消息(纯文本格式)
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             // $temp = $this->getXML($fromUser,$toUser,$content);
+            $time = time();
             echo "<xml>
  <ToUserName>$toUser</ToUserName>
  <FromUserName>$fromUser</FromUserName>
- <CreateTime>1395658920</CreateTime>
+ <CreateTime>$time</CreateTime>
  <MsgType>text</MsgType>
  <Content>$content</Content>
  </xml>";
