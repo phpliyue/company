@@ -66,8 +66,8 @@ class WxtoolController extends Controller
             DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             // $temp = $this->getXML($fromUser,$toUser,$content);
             echo "<xml>
- <ToUserName>oqEyo1LaUZuw6cVbRz2TsCnnUSEc</ToUserName>
- <FromUserName>gh_6541541b6a5b</FromUserName>
+ <ToUserName>$toUser</ToUserName>
+ <FromUserName>$fromUser</FromUserName>
  <CreateTime>1395658920</CreateTime>
  <MsgType>text</MsgType>
  <Content>$content</Content>
