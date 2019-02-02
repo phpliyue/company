@@ -117,7 +117,7 @@ class WxtoolController extends Controller
 </xml>";
 
         // DB::table('meisi')->insert(['title'=> $tpl]);
-       $temp = sprintf($tpl,$FromUserName,$ToUserName,time(),$content);
+       $temp = sprintf($tpl,$toUser,$fromUser,time(),$content);
         return $temp;
     }
 
