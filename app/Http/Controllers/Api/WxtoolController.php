@@ -84,12 +84,12 @@ class WxtoolController extends Controller
     public function getXML($toUser, $fromUser, $content)
     {
         $tpl = "<xml>
-<ToUserName><![CDATA[%s]]></ToUserName>
-<FromUserName><![CDATA[%s]]></FromUserName>
-<CreateTime>%d</CreateTime>
-<MsgType>text</MsgType>
-<Content><![CDATA[%s]]></Content>
-</xml>";
+                  <ToUserName><![CDATA[%s]]></ToUserName>
+                  <FromUserName><![CDATA[%s]]></FromUserName>
+                  <CreateTime>%d</CreateTime>
+                  <MsgType>text</MsgType>
+                  <Content><![CDATA[%s]]></Content>
+                </xml>";
         // DB::table('meisi')->insert(['title'=> $tpl]);
         $temp = sprintf($tpl, $toUser, $fromUser, time(), $content);
         return $temp;
@@ -208,7 +208,6 @@ class WxtoolController extends Controller
             ]
         }';
         $res = $this->http_post_curl($url, $data);
-        dd($res);
     }
 
     /**
@@ -267,9 +266,5 @@ class WxtoolController extends Controller
         } else {
             return false;
         }
-    }
-    public function test()
-    {
-        return 'test data';
     }
 }
