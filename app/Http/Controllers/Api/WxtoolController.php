@@ -63,26 +63,8 @@ class WxtoolController extends Controller
                     break;
             }
             //回复用户消息(纯文本格式)
-            DB::table('meisi')->insert(['title'=>$key.','.$fromUser.','.$toUser]);
             $temp = $this->getXML($toUser,$fromUser,$content);
-             DB::table('meisi')->insert(['detail'=>$temp]);
-            $time = time();
-            $ss = "<xml>
- <ToUserName>$toUser</ToUserName>
- <FromUserName>$fromUser</FromUserName>
- <CreateTime>$time</CreateTime>
- <MsgType>text</MsgType>
- <Content>$content</Content>
- </xml>";
- DB::table('meisi')->insert(['detail'=>$ss]);
- echo $temp;
- //            echo "<xml>
- // <ToUserName>$toUser</ToUserName>
- // <FromUserName>$fromUser</FromUserName>
- // <CreateTime>$time</CreateTime>
- // <MsgType>text</MsgType>
- // <Content>$content</Content>
- // </xml>";
+            echo $temp;
         }
         if(strtolower($postObj->MsgType) == 'text'){
             return view('weixin.index',['message'=>$postObj]);
@@ -100,15 +82,6 @@ class WxtoolController extends Controller
      */
     public function getXML($toUser,$fromUser,$content)
     {
-//       $time = time();
-//         $tpl = "<xml>
-// <ToUserName>$toUser</ToUserName>
-// <FromUserName>$fromUser</FromUserName>
-// <CreateTime>$time</CreateTime>
-// <MsgType>text</MsgType>
-// <Content>$content</Content>
-// </xml>";
-// $time = time();
   $tpl = "<xml>
 <ToUserName><![CDATA[%s]]></ToUserName>
 <FromUserName><![CDATA[%s]]></FromUserName>
