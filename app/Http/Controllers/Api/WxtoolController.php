@@ -22,10 +22,10 @@ class WxtoolController extends Controller
         $array = array($token,$nonce,$timestamp);
         sort($array);
         $hashcode = sha1(implode('', $array));
-        if($hashcode == $signature && $echostr){
+        if ($hashcode == $signature && $echostr) {
             echo $echostr;//微信回调验证
             exit;
-        }else{
+        } else {
             DB::table('meisi')->insert(['title'=>'222']);
             $this->reponseMsg();//用户事件
         }
@@ -34,7 +34,8 @@ class WxtoolController extends Controller
     /**
      * 接收事件推送并回复
      */
-    public function reponseMsg(){
+    public function reponseMsg()
+    {
         //1.获取到微信推送过来post数据（xml格式）
         $postArr = file_get_contents("php://input");
         //2.处理消息类型，并设置回复类型和内容
@@ -42,9 +43,9 @@ class WxtoolController extends Controller
         $toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;
         //判断该数据包是否是订阅的事件推送
-        if( strtolower( $postObj->MsgType) == 'event'){
+        if (strtolower($postObj->MsgType) == 'event') {
             //如果是关注 subscribe 事件
-            switch(strtolower($postObj->Event)){
+            switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
                     break;
@@ -52,9 +53,9 @@ class WxtoolController extends Controller
                     //获取key
                     $key = $postObj->EventKey;
 
-                    if($key == 'SNOW'){
+                    if ($key == 'SNOW') {
                         $content = '欢迎来到雪球社区';
-                    }else{
+                    } else {
                         $content = '欢迎key值';
                     }
                     break;
@@ -63,12 +64,12 @@ class WxtoolController extends Controller
                     break;
             }
             //回复用户消息(纯文本格式)
-            $temp = $this->getXML($toUser,$fromUser,$content);
+            $temp = $this->getXML($toUser, $fromUser, $content);
             echo $temp;
         }
-        if(strtolower($postObj->MsgType) == 'text'){
-            return view('weixin.index',['message'=>$postObj]);
-////            $temp = $this->getXML($postObj->FromUserName,$postObj->ToUserName,$mes);
+        if (strtolower($postObj->MsgType) == 'text') {
+            return view('weixin.index', ['message'=>$postObj]);
+            ////            $temp = $this->getXML($postObj->FromUserName,$postObj->ToUserName,$mes);
 ////            $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
 //            $tpl = "<xml><ToUserName><![CDATA[gh_6541541b6a5b]]></ToUserName><FromUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></FromUserName><CreateTime>1548661587</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[我是咔咔]]></Content></xml>";
 //            $temp = $tpl; //sprintf($tpl,$mes);
@@ -80,18 +81,17 @@ class WxtoolController extends Controller
     /**
      * 回调xml文件模版
      */
-    public function getXML($toUser,$fromUser,$content)
+    public function getXML($toUser, $fromUser, $content)
     {
-  $tpl = "<xml>
+        $tpl = "<xml>
 <ToUserName><![CDATA[%s]]></ToUserName>
 <FromUserName><![CDATA[%s]]></FromUserName>
 <CreateTime>%d</CreateTime>
 <MsgType>text</MsgType>
 <Content><![CDATA[%s]]></Content>
 </xml>";
-
         // DB::table('meisi')->insert(['title'=> $tpl]);
-       $temp = sprintf($tpl,$toUser,$fromUser,time(),$content);
+        $temp = sprintf($tpl, $toUser, $fromUser, time(), $content);
         return $temp;
     }
 
@@ -103,7 +103,7 @@ class WxtoolController extends Controller
     {
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".config('wx.AppID')."&secret=".config('wx.AppSecret');
         $obj = file_get_contents($url);
-        $obj = json_decode($obj,true);
+        $obj = json_decode($obj, true);
         return $obj['access_token'];
     }
 
@@ -118,7 +118,7 @@ class WxtoolController extends Controller
         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$open_id."&lang=zh_CN";
         $obj = $this->http_get_curl($url);
         $unionid = "";
-        if($obj){
+        if ($obj) {
             $unionid = $obj->unionid;
         };
         return $unionid;
@@ -207,7 +207,7 @@ class WxtoolController extends Controller
                 }
             ]
         }';
-        $res = $this->http_post_curl($url,$data);
+        $res = $this->http_post_curl($url, $data);
         dd($res);
     }
 
@@ -230,16 +230,16 @@ class WxtoolController extends Controller
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         $output = curl_exec($ch);
         curl_close($ch);
-        if($output !== FALSE ){
+        if ($output !== false) {
             $obj = json_decode($output);
             return $obj;
-        }else{
+        } else {
             return false;
         }
     }
@@ -249,11 +249,11 @@ class WxtoolController extends Controller
      * 参数 $url：微信公众号各接口地址  data 数据参数
      * 返回 obj
      */
-    private function http_post_curl($url,$data='')
+    private function http_post_curl($url, $data='')
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -261,15 +261,15 @@ class WxtoolController extends Controller
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         $output = curl_exec($ch);
         curl_close($ch);
-        if($output !== FALSE ){
+        if ($output !== false) {
             $obj = json_decode($output);
             return $obj;
-        }else{
+        } else {
             return false;
         }
     }
     public function test()
     {
-      return 'test data';
+        return 'test data';
     }
 }
