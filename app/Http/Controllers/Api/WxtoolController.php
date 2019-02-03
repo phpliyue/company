@@ -40,6 +40,7 @@ class WxtoolController extends Controller
         DB::table('meisi')->insert(['detail'=>$postArr]);
         //2.处理消息类型，并设置回复类型和内容
         $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
+
         $toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;
         //判断该数据包是否是订阅的事件推送
@@ -48,6 +49,7 @@ class WxtoolController extends Controller
             switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
+                    DB::table('meisi')->insert(['detail'=>$content]);
                     break;
                 case "click"://点击菜单
                     //获取key
