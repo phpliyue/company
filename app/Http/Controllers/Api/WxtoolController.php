@@ -75,13 +75,14 @@ class WxtoolController extends Controller
  <Content>$content</Content>
  </xml>";
  DB::table('meisi')->insert(['detail'=>$ss]);
-            echo "<xml>
- <ToUserName>$toUser</ToUserName>
- <FromUserName>$fromUser</FromUserName>
- <CreateTime>$time</CreateTime>
- <MsgType>text</MsgType>
- <Content>$content</Content>
- </xml>";
+ echo $temp;
+ //            echo "<xml>
+ // <ToUserName>$toUser</ToUserName>
+ // <FromUserName>$fromUser</FromUserName>
+ // <CreateTime>$time</CreateTime>
+ // <MsgType>text</MsgType>
+ // <Content>$content</Content>
+ // </xml>";
         }
         if(strtolower($postObj->MsgType) == 'text'){
             return view('weixin.index',['message'=>$postObj]);
