@@ -26,7 +26,6 @@ class WxtoolController extends Controller
             echo $echostr;//微信回调验证
             exit;
         } else {
-            DB::table('meisi')->insert(['title'=>'222']);
             $this->reponseMsg();//用户事件
         }
     }
@@ -38,6 +37,7 @@ class WxtoolController extends Controller
     {
         //1.获取到微信推送过来post数据（xml格式）
         $postArr = file_get_contents("php://input");
+        DB::table('meisi')->insert(['title'=>$postArr]);
         //2.处理消息类型，并设置回复类型和内容
         $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
         $toUser = $postObj->FromUserName;
