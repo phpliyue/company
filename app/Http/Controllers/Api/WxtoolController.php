@@ -46,39 +46,36 @@ class WxtoolController extends Controller
             //如果是关注 subscribe 事件
             switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
-                    $content = '欢迎关注我们的微信公众账号';
-//                    DB::table('meisi')->insert(['title'=>$content,'detail'=>$toUser.'|'.$this->getWxAccessToken()]);
-//                    $data = $this->getUserInfo($toUser);
-//                    DB::table('meisi')->insert(['title'=>$toUser,'detail'=>json_encode($data)]);
-//                    $data['status'] = 0;
-//                    $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
-//                    if(!empty($info)){
-//                        DB::table('snow_wxuser')->where('openid',$toUser)->update($data);
-//                    }else{
-//                        DB::table('snow_wxuser')->insert($data);
-//                    }
+                    $content = '欢迎关注雪球社区';
+                    $data['openid'] = $toUser;
+                    $data['subscribe_time'] = time();
+                    $data['unsubscribe_time'] = '';
+                    $data['status'] = 0;
+                    $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
+                    if(!empty($info)){
+                        DB::table('snow_wxuser')->where('openid',$toUser)->update($data);
+                    }else{
+                        DB::table('snow_wxuser')->insert($data);
+                    }
                     break;
                 case "unsubscribe"://订阅事件
                     $content = '真舍不得您的离开';
-//                    $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
-//                    if(!empty($info)){
-//                        $data['unsubscribe_time'] = time();
-//                        $data['status'] = 1;
-//                        DB::table('snow_wxuser')->where('openid',$toUser)->update($data);
-//                    }
+                    $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
+                    if(!empty($info)){
+                        $data['unsubscribe_time'] = time();
+                        $data['status'] = 1;
+                        DB::table('snow_wxuser')->where('openid',$toUser)->update($data);
+                    }
                     break;
                 case "click"://点击菜单
                     //获取key
                     $key = $postObj->EventKey;
-
                     if ($key == 'SNOW') {
                         $content = '欢迎来到雪球社区';
-                    } else {
-                        $content = '欢迎key值';
                     }
                     break;
                 default:
-                    $content = '欢迎关注我们的微信公众账号';
+                    $content = '欢迎关注雪球社区';
                     break;
             }
             //回复用户消息(纯文本格式)
