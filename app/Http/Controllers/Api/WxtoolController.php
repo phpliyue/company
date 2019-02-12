@@ -40,7 +40,6 @@ class WxtoolController extends Controller
         DB::table('meisi')->insert(['detail' => $postArr]);
         //2.处理消息类型，并设置回复类型和内容
         $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
-
         $toUser = $postObj->FromUserName;
         $fromUser = $postObj->ToUserName;
         //判断该数据包是否是订阅的事件推送
@@ -49,11 +48,9 @@ class WxtoolController extends Controller
             switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
-                    DB::table('meisi')->insert(['detail' => $content]);
                     break;
                 case "unsubscribe"://订阅事件
                     $content = '真舍不得您的离开';
-                    DB::table('meisi')->insert(['detail' => $content]);
                     break;
                 case "click"://点击菜单
                     //获取key
@@ -74,13 +71,10 @@ class WxtoolController extends Controller
             echo $temp;
         }
         if (strtolower($postObj->MsgType) == 'text') {
-            return view('weixin.index', ['message' => $postObj]);
-            ////            $temp = $this->getXML($postObj->FromUserName,$postObj->ToUserName,$mes);
-////            $temp = $this->getXML($fromUser,$toUser,$mes);//XML回复微信服务号
-//            $tpl = "<xml><ToUserName><![CDATA[gh_6541541b6a5b]]></ToUserName><FromUserName><![CDATA[oqEyo1MxM6Xfyo2cRu9KdglK5uEs]]></FromUserName><CreateTime>1548661587</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[我是咔咔]]></Content></xml>";
-//            $temp = $tpl; //sprintf($tpl,$mes);
-//            DB::table('meisi')->insert(['title'=>$temp]);
-//            echo $temp;
+            //回复用户消息(纯文本格式)
+            $content = trim($postObj->Content);
+            $temp = $this->getXML($toUser, $fromUser, $content);
+            echo $temp;
         }
     }
 
@@ -93,10 +87,9 @@ class WxtoolController extends Controller
                   <ToUserName><![CDATA[%s]]></ToUserName>
                   <FromUserName><![CDATA[%s]]></FromUserName>
                   <CreateTime>%d</CreateTime>
-                  <MsgType>text</MsgType>
+                  <MsgType><![CDATA[text]]></MsgType>
                  <Content><![CDATA[%s]]></Content>
                 </xml>";
-        // DB::table('meisi')->insert(['title'=> $tpl]);
         $temp = sprintf($tpl, $toUser, $fromUser, time(), $content);
         return $temp;
     }
