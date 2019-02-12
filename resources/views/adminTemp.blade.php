@@ -6,7 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    {{--<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->--}}
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="{{URL::asset('css/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
@@ -143,6 +144,7 @@
     <script src="{{URL::asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{URL::asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
     <script src="{{URL::asset('js/inspinia.js')}}"></script>
+    <script src="{{URL::asset('js/plugins/pace/pace.min.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @show
 </html>

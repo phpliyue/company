@@ -14,7 +14,10 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>上架商品</h5>
+                    <h5>新增新闻</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-primary btn-xs" onclick="history.go(-1)">返回</a>
+                    </div>
                 </div>
                 <div class="ibox-content">
                     <div class="form-horizontal">

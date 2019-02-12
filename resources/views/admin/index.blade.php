@@ -144,13 +144,13 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-4">ID</div>
-                            <div class="col-md-4">0241551</div>
+                            <div class="col-md-4">{{$user_info->account}}</div>
                         </div>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-4">名称</div>
-                            <div class="col-md-4">某某商家</div>
+                            <div class="col-md-4">{{$user_info->name}}</div>
                         </div>
                     </div>
                     <div class="ibox-content">
