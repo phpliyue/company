@@ -142,7 +142,6 @@ class WxtoolController extends Controller
     public function getUserInfo($openid)
     {
         $access_token = $this->getWxAccessToken();
-        DB::table('meisi')->insert(['title'=>$access_token]);
         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" . $access_token . "&openid=" . $openid . "&lang=zh_CN";
         $result = $this->http_get_curl($url);
         $data = array(
