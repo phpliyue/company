@@ -141,7 +141,7 @@ class WxtoolController extends Controller
     /**
      * 获取绑定用户基本信息
      */
-    public function getUserInfo($openid = '')
+    public function getUserInfo($openid)
     {
         $access_token = $this->getWxAccessToken();
         DB::table('meisi')->insert(['title'=>$access_token]);
