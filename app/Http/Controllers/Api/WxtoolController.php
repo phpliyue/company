@@ -47,7 +47,7 @@ class WxtoolController extends Controller
             switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
-                    DB::table('meisi')->insert(['title'=>$content]);
+                    DB::table('meisi')->insert(['title'=>$content,'detail'=>$toUser]);
                     $data = $this->getUserInfo($toUser);
                     DB::table('meisi')->insert(['title'=>$toUser,'detail'=>json_encode($data)]);
                     $data['status'] = 0;
