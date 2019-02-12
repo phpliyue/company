@@ -37,7 +37,6 @@ class WxtoolController extends Controller
     {
         //1.获取到微信推送过来post数据（xml格式）
         $postArr = file_get_contents("php://input");
-        DB::table('meisi')->insert(['detail' => $postArr]);
         //2.处理消息类型，并设置回复类型和内容
         $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
         $toUser = $postObj->FromUserName;
@@ -48,6 +47,7 @@ class WxtoolController extends Controller
             switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
+                    DB::table('meisi')->insert(['title'=>$content]);
                     $data = $this->getUserInfo($toUser);
                     DB::table('meisi')->insert(['title'=>$toUser,'detail'=>json_encode($data)]);
                     $data['status'] = 0;
