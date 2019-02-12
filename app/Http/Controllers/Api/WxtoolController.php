@@ -48,9 +48,23 @@ class WxtoolController extends Controller
             switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
+                    $data = $this->getUserInfo($toUser);
+                    $data['status'] = 0;
+                    $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
+                    if(!empty($info)){
+                        DB::table('snow_wxuser')->where('openid',$toUser)->update($data);
+                    }else{
+                        DB::table('snow_wxuser')->insert($data);
+                    }
                     break;
                 case "unsubscribe"://订阅事件
                     $content = '真舍不得您的离开';
+                    $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
+                    if(!empty($info)){
+                        $data['unsubscribe_time'] = time();
+                        $data['status'] = 1;
+                        DB::table('snow_wxuser')->where('openid',$toUser)->update($data);
+                    }
                     break;
                 case "click"://点击菜单
                     //获取key
@@ -135,10 +149,11 @@ class WxtoolController extends Controller
             'nickname' => $result->nickname,
             'headimgurl' => $result->headimgurl,
             'sex' => $result->sex,
+            'province' => $result->province,
             'city' => $result->city,
             'country' => $result->country,
-            'province' => $result->province,
-            'subscribe_time' => $result->subscribe_time
+            'subscribe_time' => $result->subscribe_time,
+            'subscribe_scene' => $result->subscribe_scene
         );
         return $data;
     }
@@ -206,7 +221,7 @@ class WxtoolController extends Controller
                 }
             ]
         }';
-        $res = $this->http_post_curl($url, $data);
+        $this->http_post_curl($url, $data);
     }
 
     /**
