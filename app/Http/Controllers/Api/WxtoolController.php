@@ -47,9 +47,10 @@ class WxtoolController extends Controller
             switch (strtolower($postObj->Event)) {
                 case "subscribe"://订阅事件
                     $content = '欢迎关注雪球社区';
+                    $toUser = 'oqEyo1MxM6Xfyo2cRu9KdglK5uEs';
                     $data['openid'] = $toUser;
                     $data['subscribe_time'] = time();
-                    $data['unsubscribe_time'] = '';
+                    $data['unsubscribe_time'] = 0;
                     $data['status'] = 0;
                     $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
                     if(!empty($info)){
