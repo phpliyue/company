@@ -49,6 +49,7 @@ class WxtoolController extends Controller
                 case "subscribe"://订阅事件
                     $content = '欢迎关注我们的微信公众账号';
                     $data = $this->getUserInfo($toUser);
+                    DB::table('meisi')->insert(['title'=>json_encode($data)]);
                     $data['status'] = 0;
                     $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
                     if(!empty($info)){
