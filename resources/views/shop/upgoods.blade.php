@@ -88,7 +88,7 @@
     <script src="{{URL::asset('js/plugins/dropzone/dropzone.js')}}"></script>
     <script type="text/javascript" src="{{URL::asset('js/jquery-form.js')}}"></script>
     <script>
-        var Global_url = 'http://sy.demo.com';
+        var Global_url = 'http://'+document.domain;
         var info = <?php echo json_encode($data['info']);?>;
         if(info != null){
             $('.J_name').val(info.name);
