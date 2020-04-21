@@ -209,7 +209,7 @@ class WxtoolController extends Controller
                          {
                            "type":"view",
                            "name":"联系我们",
-                           "url":"https://www.msqlx.com"
+                           "url":"https://www.baidu.com"
                          },
                          {
                            "type":"view",
