@@ -97,7 +97,7 @@
     <script type="text/javascript" src="{{URL::asset('js/jquery-form.js')}}"></script>
     <script>
         $(document).ready(function() {
-            var Global_url = 'http://sy.demo.com';
+            var Global_url = 'http://owl.msqlx.com';
             var info = <?php echo json_encode($info);?>;
             if(info != null){
                 $('.J_title').val(info.title);
