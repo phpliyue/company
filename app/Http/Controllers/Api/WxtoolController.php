@@ -72,7 +72,7 @@ class WxtoolController extends Controller
                     //获取key
                     $key = $postObj->EventKey;
                     if ($key == 'SNOW') {
-                        $content = '欢迎来到雪球社区';
+                        $content = '欢迎来到雪球社区。';
                     }
                     break;
                 default:
