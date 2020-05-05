@@ -104,7 +104,7 @@ class WxtoolController extends Controller
                  <Content><![CDATA[%s]]></Content>
                 </xml>";
         if ($content == '快递'){
-            $content = '菜鸟驿站 13012345678';
+            $content = "$fromUser";
         }
         $temp = sprintf($tpl, $toUser, $fromUser, time(), $content);
         return $temp;
