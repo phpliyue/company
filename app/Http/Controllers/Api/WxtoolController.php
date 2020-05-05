@@ -49,7 +49,7 @@ class WxtoolController extends Controller
                     $content = '欢迎关注雪球社区';
                     $toUser = 'oqEyo1MxM6Xfyo2cRu9KdglK5uEs';
                     $data['openid'] = $toUser;
-                    $data['subscribe_time'] = time();
+                    $data['subscribe_time'] = date('Y-m-d H:i:s',time());//关注时间
                     $data['unsubscribe_time'] = 0;
                     $data['status'] = 0;
                     $info = DB::table('snow_wxuser')->where('openid',$toUser)->first();
